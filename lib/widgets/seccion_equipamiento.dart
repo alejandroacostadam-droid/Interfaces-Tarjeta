@@ -2,8 +2,43 @@ import 'package:flutter/material.dart';
 import '../design/colores.dart';
 import 'tarjeta_equipamiento.dart';
 
-class SeccionEquipamiento extends StatelessWidget {
-  const SeccionEquipamiento({super.key});
+class SeccionEquipamiento extends StatefulWidget {
+  final String? objetoInicial;
+  final ValueChanged<String>? onObjetoSeleccionado;
+
+  const SeccionEquipamiento({
+    super.key,
+    this.objetoInicial,
+    this.onObjetoSeleccionado,
+  });
+
+  @override
+  State<SeccionEquipamiento> createState() => _SeccionEquipamientoState();
+}
+
+class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
+  late String _objetoSeleccionado;
+
+  @override
+  void initState() {
+    super.initState();
+    _objetoSeleccionado = widget.objetoInicial ?? 'Bastón de fresno';
+  }
+
+  @override
+  void didUpdateWidget(covariant SeccionEquipamiento oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.objetoInicial != null && widget.objetoInicial != _objetoSeleccionado) {
+      _objetoSeleccionado = widget.objetoInicial!;
+    }
+  }
+
+  void _seleccionar(String objeto) {
+    setState(() {
+      _objetoSeleccionado = objeto;
+    });
+    widget.onObjetoSeleccionado?.call(objeto);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,44 +94,48 @@ class SeccionEquipamiento extends StatelessWidget {
         ),
         const SizedBox(height: 14.0),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: TarjetaEquipamiento(
                 titulo: 'Bastón de fresno',
                 categoria: 'Foco arcano · 2 manos',
                 icono: Icons.auto_awesome,
-                seleccionado: true,
+                seleccionado: _objetoSeleccionado == 'Bastón de fresno',
+                onTap: () => _seleccionar('Bastón de fresno'),
               ),
             ),
-            SizedBox(width: 12.0),
+            const SizedBox(width: 12.0),
             Expanded(
               child: TarjetaEquipamiento(
                 titulo: 'Espada corta',
                 categoria: 'Arma cuerpo a cuerpo',
                 icono: Icons.shield_outlined,
-                seleccionado: false,
+                seleccionado: _objetoSeleccionado == 'Espada corta',
+                onTap: () => _seleccionar('Espada corta'),
               ),
             ),
           ],
         ),
         const SizedBox(height: 12.0),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: TarjetaEquipamiento(
                 titulo: 'Arco de viajero',
                 categoria: 'Arma a distancia',
                 icono: Icons.near_me,
-                seleccionado: false,
+                seleccionado: _objetoSeleccionado == 'Arco de viajero',
+                onTap: () => _seleccionar('Arco de viajero'),
               ),
             ),
-            SizedBox(width: 12.0),
+            const SizedBox(width: 12.0),
             Expanded(
               child: TarjetaEquipamiento(
                 titulo: 'Grimorio antiguo',
                 categoria: 'Foco arcano · 1 mano',
                 icono: Icons.auto_stories,
-                seleccionado: false,
+                seleccionado: _objetoSeleccionado == 'Grimorio antiguo',
+                onTap: () => _seleccionar('Grimorio antiguo'),
               ),
             ),
           ],
