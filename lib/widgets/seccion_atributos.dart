@@ -3,16 +3,93 @@ import '../design/colores.dart';
 import 'fila_atributo.dart';
 import 'tarjeta_puntos.dart';
 
-class SeccionAtributos extends StatelessWidget {
+class SeccionAtributos extends StatefulWidget {
   const SeccionAtributos({super.key});
+
+  @override
+  State<SeccionAtributos> createState() => _SeccionAtributosState();
+}
+
+class _SeccionAtributosState extends State<SeccionAtributos> {
+  // Variables simples de puntos
+  int puntosDisponibles = 8;
+  int puntosUsados = 0;
+
+  // Variables simples de atributos (por defecto 5 cada uno)
+  int inteligencia = 5;
+  int sabiduria = 5;
+  int carisma = 5;
+
+  // Funciones sencillas para Inteligencia
+  void incrementarInteligencia() {
+    if (puntosDisponibles > 0 && inteligencia < 16) {
+      setState(() {
+        inteligencia++;
+        puntosDisponibles--;
+        puntosUsados++;
+      });
+    }
+  }
+
+  void decrementarInteligencia() {
+    if (inteligencia > 5) {
+      setState(() {
+        inteligencia--;
+        puntosDisponibles++;
+        puntosUsados--;
+      });
+    }
+  }
+
+  // Funciones sencillas para Sabiduría
+  void incrementarSabiduria() {
+    if (puntosDisponibles > 0 && sabiduria < 16) {
+      setState(() {
+        sabiduria++;
+        puntosDisponibles--;
+        puntosUsados++;
+      });
+    }
+  }
+
+  void decrementarSabiduria() {
+    if (sabiduria > 5) {
+      setState(() {
+        sabiduria--;
+        puntosDisponibles++;
+        puntosUsados--;
+      });
+    }
+  }
+
+  // Funciones sencillas para Carisma
+  void incrementarCarisma() {
+    if (puntosDisponibles > 0 && carisma < 16) {
+      setState(() {
+        carisma++;
+        puntosDisponibles--;
+        puntosUsados++;
+      });
+    }
+  }
+
+  void decrementarCarisma() {
+    if (carisma > 5) {
+      setState(() {
+        carisma--;
+        puntosDisponibles++;
+        puntosUsados--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Row(
-          children: [
+          children: const [
             Text(
               '02',
               style: TextStyle(
@@ -34,40 +111,43 @@ class SeccionAtributos extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 4.0),
-        Text(
-          'Cada aumento cuesta 1 punto. Base: 8 · Máximo: 16.',
+        const SizedBox(height: 4.0),
+        const Text(
+          'Cada aumento cuesta 1 punto. Base: 5 · Máximo: 16.',
           style: TextStyle(
             fontSize: 13.0,
             fontWeight: FontWeight.w400,
             color: Colores.textoSecundario,
           ),
         ),
-        SizedBox(height: 14.0),
-        TarjetaPuntos(),
-        SizedBox(height: 20.0),
+        const SizedBox(height: 14.0),
+        TarjetaPuntos(
+          puntosDisponibles: puntosDisponibles,
+          puntosUsados: puntosUsados,
+        ),
+        const SizedBox(height: 20.0),
         FilaAtributo(
           nombre: 'Inteligencia',
-          textoBadge: '+4 puntos asignados',
-          badgeDorado: true,
           descripcion: 'Conocimiento y poder mágico',
-          valor: '12',
+          valor: inteligencia,
+          onIncrementar: incrementarInteligencia,
+          onDecrementar: decrementarInteligencia,
         ),
-        SizedBox(height: 18.0),
+        const SizedBox(height: 18.0),
         FilaAtributo(
           nombre: 'Sabiduría',
-          textoBadge: '+2 puntos asignados',
-          badgeDorado: true,
           descripcion: 'Percepción e intuición',
-          valor: '10',
+          valor: sabiduria,
+          onIncrementar: incrementarSabiduria,
+          onDecrementar: decrementarSabiduria,
         ),
-        SizedBox(height: 18.0),
+        const SizedBox(height: 18.0),
         FilaAtributo(
           nombre: 'Carisma',
-          textoBadge: 'Valor base',
-          badgeDorado: false,
           descripcion: 'Presencia y persuasión',
-          valor: '8',
+          valor: carisma,
+          onIncrementar: incrementarCarisma,
+          onDecrementar: decrementarCarisma,
         ),
       ],
     );

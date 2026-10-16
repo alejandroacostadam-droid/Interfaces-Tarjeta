@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import '../design/colores.dart';
 
 class TarjetaPuntos extends StatelessWidget {
-  const TarjetaPuntos({super.key});
+  final int puntosDisponibles;
+  final int puntosUsados;
+
+  const TarjetaPuntos({
+    super.key,
+    required this.puntosDisponibles,
+    required this.puntosUsados,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,74 +17,55 @@ class TarjetaPuntos extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
       decoration: BoxDecoration(
         color: Colores.superficie,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: Colores.borde,
           width: 1.0,
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            '2',
-            style: TextStyle(
-              fontFamily: 'serif',
-              fontSize: 34.0,
-              fontWeight: FontWeight.w500,
-              color: Colores.dorado,
-            ),
-          ),
-          const SizedBox(width: 12.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Puntos disponibles',
                 style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colores.textoPrincipal,
-                ),
-              ),
-              SizedBox(height: 2.0),
-              Text(
-                '6 utilizados de 8',
-                style: TextStyle(
-                  fontSize: 11.0,
+                  fontSize: 12.0,
                   fontWeight: FontWeight.w400,
                   color: Colores.textoSecundario,
                 ),
               ),
+              const SizedBox(height: 4.0),
+              Text(
+                '$puntosDisponibles',
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colores.dorado,
+                ),
+              ),
             ],
           ),
-          const Spacer(),
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 3.5),
-                width: 4.0,
-                height: 18.0,
-                decoration: BoxDecoration(
-                  color: Colores.dorado,
-                  borderRadius: BorderRadius.circular(2.0),
+              const Text(
+                'Puntos utilizados',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colores.textoSecundario,
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 3.5),
-                width: 4.0,
-                height: 18.0,
-                decoration: BoxDecoration(
-                  color: Colores.dorado,
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 3.5),
-                width: 4.0,
-                height: 18.0,
-                decoration: BoxDecoration(
-                  color: Colores.dorado,
-                  borderRadius: BorderRadius.circular(2.0),
+              const SizedBox(height: 4.0),
+              Text(
+                '$puntosUsados',
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colores.textoPrincipal,
                 ),
               ),
             ],

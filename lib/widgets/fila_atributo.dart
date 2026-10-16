@@ -3,22 +3,29 @@ import '../design/colores.dart';
 
 class FilaAtributo extends StatelessWidget {
   final String nombre;
-  final String textoBadge;
-  final bool badgeDorado;
   final String descripcion;
-  final String valor;
+  final int valor;
+  final VoidCallback onIncrementar;
+  final VoidCallback onDecrementar;
 
   const FilaAtributo({
     super.key,
     required this.nombre,
-    required this.textoBadge,
-    required this.badgeDorado,
     required this.descripcion,
     required this.valor,
+    required this.onIncrementar,
+    required this.onDecrementar,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool esBase = valor == 5;
+    final int puntosExtra = valor - 5;
+    final String textoBadge = esBase
+        ? 'Valor base'
+        : (puntosExtra == 1 ? '+1 punto asignado' : '+$puntosExtra puntos asignados');
+    final Color colorBadge = esBase ? Colores.textoSecundario : Colores.dorado;
+
     return Row(
       children: [
         Expanded(
@@ -38,8 +45,8 @@ class FilaAtributo extends StatelessWidget {
                 textoBadge,
                 style: TextStyle(
                   fontSize: 11.0,
-                  fontWeight: badgeDorado ? FontWeight.w500 : FontWeight.w400,
-                  color: badgeDorado ? Colores.dorado : Colores.textoSecundario,
+                  fontWeight: esBase ? FontWeight.w400 : FontWeight.w500,
+                  color: colorBadge,
                 ),
               ),
               const SizedBox(height: 3.0),
@@ -56,28 +63,31 @@ class FilaAtributo extends StatelessWidget {
         ),
         Row(
           children: [
-            Container(
-              width: 36.0,
-              height: 36.0,
-              decoration: BoxDecoration(
-                color: Colores.superficie,
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(
-                  color: Colores.borde,
-                  width: 1.0,
+            GestureDetector(
+              onTap: esBase ? null : onDecrementar,
+              child: Container(
+                width: 36.0,
+                height: 36.0,
+                decoration: BoxDecoration(
+                  color: Colores.superficie,
+                  borderRadius: BorderRadius.circular(6.0),
+                  border: Border.all(
+                    color: esBase ? Colores.borde.withValues(alpha: 0.4) : Colores.borde,
+                    width: 1.0,
+                  ),
                 ),
-              ),
-              child: const Icon(
-                Icons.remove,
-                size: 16.0,
-                color: Colores.textoSecundario,
+                child: Icon(
+                  Icons.remove,
+                  size: 16.0,
+                  color: esBase ? Colores.inactivo.withValues(alpha: 0.3) : Colores.textoPrincipal,
+                ),
               ),
             ),
             Container(
               width: 38.0,
               alignment: Alignment.center,
               child: Text(
-                valor,
+                '$valor',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w700,
@@ -85,21 +95,24 @@ class FilaAtributo extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: 36.0,
-              height: 36.0,
-              decoration: BoxDecoration(
-                color: Colores.superficie,
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(
-                  color: Colores.borde,
-                  width: 1.0,
+            GestureDetector(
+              onTap: onIncrementar,
+              child: Container(
+                width: 36.0,
+                height: 36.0,
+                decoration: BoxDecoration(
+                  color: Colores.superficie,
+                  borderRadius: BorderRadius.circular(6.0),
+                  border: Border.all(
+                    color: Colores.borde,
+                    width: 1.0,
+                  ),
                 ),
-              ),
-              child: const Icon(
-                Icons.add,
-                size: 16.0,
-                color: Colores.textoSecundario,
+                child: const Icon(
+                  Icons.add,
+                  size: 16.0,
+                  color: Colores.dorado,
+                ),
               ),
             ),
           ],
