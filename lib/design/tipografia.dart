@@ -100,7 +100,7 @@ class Tipografia {
     fontSize: 13,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
-    color: Colores.textoPrincipal, // gris suave
+    color: Colores.textoSecundario, // gris suave
   );
 
   /// Recuento pequeño a la derecha del título de sección.
@@ -111,6 +111,15 @@ class Tipografia {
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
     color: Colores.textoPrincipal, // gris apagado
+  );
+
+  /// Línea dorada pequeña ENCIMA de recuadro editable en pantalla 1.
+  /// Ej: "NOMBRE DEL PERSONAJE", "BREVE BIOGRAFÍA"
+  static final TextStyle titulillo = GoogleFonts.inter(
+    fontSize: 11,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 2,
+    color: Colores.dorado,
   );
 
   // ═════════════ 4. TARJETAS ═════════════
