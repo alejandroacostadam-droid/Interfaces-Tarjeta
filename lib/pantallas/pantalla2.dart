@@ -23,41 +23,13 @@ class Pantalla2 extends StatelessWidget {
             children: const [
               SizedBox(height: 24.0),
               Cabecera2(),
-              TarjetaEquipamiento2(
-                titulo: "Clase y atributos",
-                categoria: "Selecciona una clase y distribuye tus atributos físicos para definir a tu personaje.",
-                seleccionado: true,
-              ),
               SeccionEquipamiento2(),
               SeccionAtributos2(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /*  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colores.fondo,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Cabecera(),
-              SizedBox(height: 24.0),
-              SeccionEquipamiento2(),
-              SizedBox(height: 28.0),
-              SeccionAtributos2(),
-              SizedBox(height: 24.0),
               BotonesInferiores2(),
             ],
           ),
         ),
       ),
     );
-  }*/
+  }
 }

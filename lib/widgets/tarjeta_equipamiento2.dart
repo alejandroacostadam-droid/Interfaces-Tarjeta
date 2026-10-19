@@ -32,10 +32,6 @@ class TarjetaEquipamiento2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment
-                .spaceBetween, //Que haya espacio entre las letras y el check
-          ),
           Text(
             titulo,
             style: const TextStyle(

@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
+import 'tarjeta_equipamiento2.dart';
 
 class BotonesInferiores2 extends StatelessWidget {
   const BotonesInferiores2({super.key});
-
   @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-
-      ],
-    );
-  }
-
-  /*@override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -61,5 +53,5 @@ class BotonesInferiores2 extends StatelessWidget {
         const SizedBox(height: 12.0),
       ],
     );
-  }*/
+  }
 }

@@ -19,6 +19,20 @@ class Cabecera2 extends StatelessWidget {
             color: Colores.dorado,
           ),
         ),
+        SizedBox(height: 10.0),
+        Text(
+          'Clase y atributos',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colores.textoPrincipal,
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          'Selecciona una clase y distribuye tus atributos físicos para definir a tu personaje.',
+          style: TextStyle(fontSize: 12.0, color: Colores.textoSecundario),
+        ),
       ],
     );
   }

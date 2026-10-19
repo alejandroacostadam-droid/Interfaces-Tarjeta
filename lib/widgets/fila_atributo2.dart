@@ -1,19 +1,19 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
 
 class FilaAtributo2 extends StatelessWidget {
   final String nombre;
-  final String textoBadge;
-  final bool badgeDorado;
+  final String textoValor;
+  final bool seleccionado;
   final String descripcion;
   final String valor;
 
   const FilaAtributo2({
     super.key,
     required this.nombre,
-    required this.textoBadge,
-    required this.badgeDorado,
+    required this.textoValor,
+    required this.seleccionado,
     required this.descripcion,
     required this.valor,
   });
@@ -26,29 +26,32 @@ class FilaAtributo2 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 3.5),
               Text(
                 nombre,
                 style: const TextStyle(
                   fontSize: 14.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoPrincipal,
                 ),
               ),
-              const SizedBox(height: 2.0),
+              const SizedBox(height: 5.0),
               Text(
-                textoBadge,
+                textoValor,
                 style: TextStyle(
                   fontSize: 11.0,
-                  fontWeight: badgeDorado ? FontWeight.w500 : FontWeight.w400,
-                  color: badgeDorado ? Colores.dorado : Colores.textoSecundario,
+                  fontWeight: seleccionado ? FontWeight.bold : FontWeight.w400,
+                  color: seleccionado
+                      ? Colores.dorado
+                      : Colores.textoSecundario,
                 ),
               ),
-              const SizedBox(height: 3.0),
+              const SizedBox(height: 5.0),
               Text(
                 descripcion,
                 style: const TextStyle(
                   fontSize: 12.0,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoSecundario,
                 ),
               ),
@@ -78,7 +81,7 @@ class FilaAtributo2 extends StatelessWidget {
                 valor,
                 style: const TextStyle(
                   fontSize: 18.0,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoPrincipal,
                 ),
               ),
@@ -103,4 +106,3 @@ class FilaAtributo2 extends StatelessWidget {
     );
   }
 }
-*/

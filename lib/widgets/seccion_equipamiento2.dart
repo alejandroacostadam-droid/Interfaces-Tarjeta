@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../design/colores.dart';
 import 'tarjeta_equipamiento2.dart';
@@ -11,6 +12,7 @@ class SeccionEquipamiento2 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 8.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -61,6 +63,7 @@ class SeccionEquipamiento2 extends StatelessWidget {
         const SizedBox(height: 14.0),
         Row(
           children: const [
+            //Icon(MdiIcons.sword),
             Expanded(
               child: TarjetaEquipamiento2(
                 titulo: 'Guardián',
