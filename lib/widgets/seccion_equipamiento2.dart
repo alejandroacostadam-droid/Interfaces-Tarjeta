@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../design/colores.dart';
 import 'tarjeta_equipamiento2.dart';
@@ -62,13 +61,13 @@ class SeccionEquipamiento2 extends StatelessWidget {
         ),
         const SizedBox(height: 14.0),
         Row(
-          children: const [
-            //Icon(MdiIcons.sword),
+          children: [
             Expanded(
               child: TarjetaEquipamiento2(
                 titulo: 'Guardián',
                 categoria: 'Defensa y resistencia',
-                seleccionado: true,
+                seleccionado: false,
+                iconos: Icons.shield,
               ),
             ),
             SizedBox(width: 12.0),
@@ -77,6 +76,7 @@ class SeccionEquipamiento2 extends StatelessWidget {
                 titulo: 'Cazador',
                 categoria: 'Movilidad y precisión',
                 seleccionado: false,
+                iconos: Icons.browse_gallery,
               ),
             ),
           ],
@@ -88,7 +88,8 @@ class SeccionEquipamiento2 extends StatelessWidget {
               child: TarjetaEquipamiento2(
                 titulo: 'Arcano',
                 categoria: 'Magia y control',
-                seleccionado: false,
+                seleccionado: true,
+                iconos: Icons.book,
               ),
             ),
             SizedBox(width: 12.0),
@@ -97,6 +98,7 @@ class SeccionEquipamiento2 extends StatelessWidget {
                 titulo: 'Bardo',
                 categoria: 'Versatilidad y apoyo',
                 seleccionado: false,
+                iconos: Icons.auto_fix_high,
               ),
             ),
           ],

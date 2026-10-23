@@ -6,12 +6,14 @@ class TarjetaEquipamiento2 extends StatelessWidget {
   final String titulo;
   final String categoria;
   final bool seleccionado;
+  final IconData iconos;
 
   const TarjetaEquipamiento2({
     super.key,
     required this.titulo,
     required this.categoria,
     required this.seleccionado,
+    required this.iconos,
   });
 
   @override
@@ -27,11 +29,17 @@ class TarjetaEquipamiento2 extends StatelessWidget {
           color: seleccionado ? Colores.dorado : Colores.borde,
           width: seleccionado ? 1.2 : 1.0,
         ),
+
         borderRadius: BorderRadius.circular(14.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Icon(
+            iconos,
+            size: 22.0,
+            color: seleccionado ? Colores.dorado : Colores.textoSecundario,
+          ),
           Text(
             titulo,
             style: const TextStyle(
