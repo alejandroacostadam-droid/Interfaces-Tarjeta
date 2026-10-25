@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../design/colores.dart';
 import 'tarjeta_equipamiento.dart';
 
@@ -18,11 +21,45 @@ class SeccionEquipamiento extends StatefulWidget {
 
 class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
   late String _objetoSeleccionado;
+  List<dynamic> _objetos = [];
 
   @override
   void initState() {
     super.initState();
-    _objetoSeleccionado = widget.objetoInicial ?? 'Bastón de fresno';
+    _objetoSeleccionado = widget.objetoInicial ?? 'Bastón mágico';
+    _cargarObjetos();
+  }
+
+  Future<void> _cargarObjetos() async {
+    final String texto = await rootBundle.loadString('assets/data/objetos.json');
+    setState(() {
+      _objetos = jsonDecode(texto);
+    });
+  }
+
+  IconData _iconoObjeto(String id) {
+    switch (id) {
+      case 'espada':
+        return Icons.gavel;
+      case 'arco':
+        return Icons.near_me;
+      case 'baston':
+        return Icons.auto_awesome;
+      case 'escudo':
+        return Icons.shield_outlined;
+      default:
+        return Icons.help_outline;
+    }
+  }
+
+  Widget _crearTarjeta(dynamic objeto) {
+    return TarjetaEquipamiento(
+      titulo: objeto['nombre'],
+      categoria: objeto['tipo'],
+      icono: _iconoObjeto(objeto['id']),
+      seleccionado: _objetoSeleccionado == objeto['nombre'],
+      onTap: () => _seleccionar(objeto['nombre']),
+    );
   }
 
   @override
@@ -49,8 +86,8 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
-          children: const [
-            Row(
+          children: [
+            const Row(
               children: [
                 Text(
                   '01',
@@ -74,8 +111,8 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
               ],
             ),
             Text(
-              '4 objetos',
-              style: TextStyle(
+              '${_objetos.length} objetos',
+              style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.w400,
                 color: Colores.textoSecundario,
@@ -93,53 +130,21 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
           ),
         ),
         const SizedBox(height: 14.0),
-        Row(
-          children: [
-            Expanded(
-              child: TarjetaEquipamiento(
-                titulo: 'Bastón de fresno',
-                categoria: 'Foco arcano · 2 manos',
-                icono: Icons.auto_awesome,
-                seleccionado: _objetoSeleccionado == 'Bastón de fresno',
-                onTap: () => _seleccionar('Bastón de fresno'),
-              ),
+        for (int i = 0; i < _objetos.length; i += 2)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Row(
+              children: [
+                Expanded(child: _crearTarjeta(_objetos[i])),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: i + 1 < _objetos.length
+                      ? _crearTarjeta(_objetos[i + 1])
+                      : const SizedBox(),
+                ),
+              ],
             ),
-            const SizedBox(width: 12.0),
-            Expanded(
-              child: TarjetaEquipamiento(
-                titulo: 'Espada corta',
-                categoria: 'Arma cuerpo a cuerpo',
-                icono: Icons.shield_outlined,
-                seleccionado: _objetoSeleccionado == 'Espada corta',
-                onTap: () => _seleccionar('Espada corta'),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12.0),
-        Row(
-          children: [
-            Expanded(
-              child: TarjetaEquipamiento(
-                titulo: 'Arco de viajero',
-                categoria: 'Arma a distancia',
-                icono: Icons.near_me,
-                seleccionado: _objetoSeleccionado == 'Arco de viajero',
-                onTap: () => _seleccionar('Arco de viajero'),
-              ),
-            ),
-            const SizedBox(width: 12.0),
-            Expanded(
-              child: TarjetaEquipamiento(
-                titulo: 'Grimorio antiguo',
-                categoria: 'Foco arcano · 1 mano',
-                icono: Icons.auto_stories,
-                seleccionado: _objetoSeleccionado == 'Grimorio antiguo',
-                onTap: () => _seleccionar('Grimorio antiguo'),
-              ),
-            ),
-          ],
-        ),
+          ),
       ],
     );
   }

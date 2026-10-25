@@ -16,7 +16,7 @@ class PantallaEquipamiento extends StatefulWidget {
 }
 
 class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
-  String _objetoSeleccionado = 'Bastón de fresno';
+  String _objetoSeleccionado = 'Bastón mágico';
 
   void _onEquipamientoCambiado(String nuevoObjeto) {
     setState(() {
