@@ -141,7 +141,7 @@ class Tipografia {
     fontSize: 10,
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
-    color: Colores.textoPrincipal, // gris apagado
+    color: Colores.textoSecundario, // gris apagado
   );
 
   // ═════════════ 5. TEXTOS LARGOS ═════════════
@@ -150,7 +150,7 @@ class Tipografia {
   /// Ej: la biografía, la descripción en "Vista previa de raza"
   /// Inter Regular 400 · 13 px · 160%
   static final TextStyle textoLargo = GoogleFonts.inter(
-    fontSize: 13,
+    fontSize: 10,
     fontWeight: FontWeight.w400,
     height: 1.6,
     letterSpacing: 0,
