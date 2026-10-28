@@ -1,29 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
-import '../widgets/botones_inferiores.dart';
-import '../widgets/cabecera.dart';
-import '../widgets/seccion_atributos.dart';
-import '../widgets/seccion_equipamiento.dart';
+import '../widgets/tarjeta_atributos_mentales.dart';
+import '../widgets/tarjeta_equipamiento_final.dart';
 
-class PantallaEquipamiento extends StatefulWidget {
-  final ValueChanged<String>? onObjetoSeleccionado;
+class Pantalla4 extends StatelessWidget {
+  const Pantalla4({super.key});
 
-  const PantallaEquipamiento({super.key, this.onObjetoSeleccionado});
-
-  @override
-  State<PantallaEquipamiento> createState() => _PantallaEquipamientoState();
-}
-
-class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
-  String _objetoSeleccionado = 'Bastón mágico';
-
-  void _onEquipamientoCambiado(String nuevoObjeto) {
-    setState(() {
-      _objetoSeleccionado = nuevoObjeto;
-    });
-    widget.onObjetoSeleccionado?.call(nuevoObjeto);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +14,15 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
       backgroundColor: Colores.fondo,
       body: SafeArea(
         child: SingleChildScrollView(
-          
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              TarjetaAtributosMentales(),
+              SizedBox(height: 16.0),
+              TarjetaEquipamientoFinal(),
+            ],
+          ),
         ),
       ),
     );
