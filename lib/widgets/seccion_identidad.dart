@@ -15,7 +15,12 @@ class SeccionIdentidad extends StatelessWidget {
           children: [
             Text('01', style: Tipografia.numeroSeccion),
             const SizedBox(width: 10.0),
-            Text('Identidad del personaje', style: Tipografia.tituloSeccion),
+            Flexible(
+              child: Text(
+                'Identidad del personaje',
+                style: Tipografia.tituloSeccion,
+              ),
+            ),
           ],
         ),
         Text(

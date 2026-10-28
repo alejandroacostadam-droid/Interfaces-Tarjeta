@@ -4,40 +4,33 @@ import '../design/tipografia.dart';
 import '../design/colores.dart';
 
 class PreviewRaza extends StatelessWidget {
-  final String raza;
+  final dynamic raza; // una raza del JSON
 
   const PreviewRaza({super.key, required this.raza});
 
-  // Datos de cada raza: imagen, descripción larga y rasgos
-  static const Map<String, Map<String, dynamic>> _datos = {
-    'Medianoche': {
-      'imagen': 'assets/razas/medianoche.png',
-      'descripcion': 'La raza Medianoche se caracteriza por su conexión a la luna, una presencia silenciosa y una resistencia natural a la oscuridad. Es ideal para personajes que buscan misterio, sigilo y una conexión profunda con el mundo nocturno.',
-      'rasgos': ['Sigilo', 'Resistencia a la oscuridad', 'Misticismo lunar'],
-    },
-    'Bosque': {
-      'imagen': 'assets/razas/bosque.png',
-      'descripcion': 'La raza Bosque vive en armonía con la naturaleza y mantiene una conexión profunda con la tierra. Es ideal para personajes pacientes, protectores y que se sienten en casa entre árboles y criaturas salvajes.',
-      'rasgos': ['Afinidad natural', 'Curación herbal', 'Rastreo'],
-    },
-    'Fuego': {
-      'imagen': 'assets/razas/fuego.png',
-      'descripcion': 'La raza Fuego destaca por su carácter apasionado, su resistencia al calor y una voluntad inquebrantable. Es ideal para personajes valientes, impulsivos y dispuestos a enfrentarse a cualquier desafío.',
-      'rasgos': ['Resistencia al calor', 'Fuerza de voluntad', 'Furia ígnea'],
-    },
-    'Mar': {
-      'imagen': 'assets/razas/mar.png',
-      'descripcion': 'La raza Mar está ligada al agua, con una gran agilidad y una conexión intuitiva con las corrientes. Es ideal para personajes adaptables, curiosos y que se mueven con libertad allá donde van.',
-      'rasgos': ['Agilidad', 'Respiración acuática', 'Intuición'],
-    },
+  // Nombres bonitos de los atributos del JSON
+  static const Map<String, String> _nombresAtributos = {
+    'fuerza': 'Fuerza',
+    'destreza': 'Destreza',
+    'constitucion': 'Constitución',
+    'inteligencia': 'Inteligencia',
+    'sabiduria': 'Sabiduría',
+    'carisma': 'Carisma',
   };
 
   @override
   Widget build(BuildContext context) {
-    final datos = _datos[raza]!;
-    final List<String> rasgos = List<String>.from(datos['rasgos']);
+    // Rasgos = bonificadores distintos de 0, ej: "+1 Carisma"
+    final Map<String, dynamic> bonificadores = raza['bonificadores'];
+    final List<String> rasgos = [
+      for (final bonificador in bonificadores.entries)
+        if (bonificador.value != 0)
+          '${bonificador.value > 0 ? '+' : ''}${bonificador.value} '
+              '${_nombresAtributos[bonificador.key] ?? bonificador.key}',
+    ];
 
     return Container(
+      width: double.infinity, // siempre todo el ancho
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -48,50 +41,72 @@ class PreviewRaza extends StatelessWidget {
         children: [
           Text('Vista previa de raza', style: Tipografia.tituloTarjeta),
           const SizedBox(height: 15.0),
-          // IntrinsicHeight + stretch: la imagen mide lo mismo de alto
-          // que la columna de texto de la derecha
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Imagen de la raza (el color de fondo se ve si no hay imagen)
-                // flex 3 de 11: más o menos una cuarta parte del ancho
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colores.dorado.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: AssetImage(datos['imagen']),
-                        fit: BoxFit.cover,
-                        onError: (error, stackTrace) {},
+          // LayoutBuilder nos da el ancho disponible para calcular el de la imagen.
+          // El Stack mide lo que mide el texto, y la imagen (Positioned con
+          // top: 0 y bottom: 0) se estira a ese mismo alto.
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final anchoImagen = constraints.maxWidth * 0.35;
+
+              return Stack(
+                children: [
+                  // Texto: deja hueco a la izquierda para la imagen
+                  Padding(
+                    padding: EdgeInsets.only(left: anchoImagen + 12.0),
+                    child: ConstrainedBox(
+                      // Alto mínimo: todas las razas miden igual
+                      constraints: const BoxConstraints(minHeight: 120.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(raza['nombre'], style: Tipografia.tituloTarjeta),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            raza['descripcion'],
+                            style: Tipografia.textoLargo,
+                          ),
+                          if (rasgos.isNotEmpty) ...[
+                            const SizedBox(height: 12.0),
+                            Wrap(
+                              spacing: 8.0,
+                              runSpacing: 8.0,
+                              children: [
+                                for (final rasgo in rasgos)
+                                  _Etiqueta(texto: rasgo),
+                              ],
+                            ),
+                          ],
+                        ],
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12.0),
-                Expanded(
-                  flex: 8,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(raza, style: Tipografia.tituloTarjeta),
-                      const SizedBox(height: 8.0),
-                      Text(datos['descripcion'], style: Tipografia.textoLargo),
-                      const SizedBox(height: 12.0),
-                      Wrap(
-                        spacing: 8.0,
-                        runSpacing: 8.0,
-                        children: [
-                          for (final rasgo in rasgos) _Etiqueta(texto: rasgo),
-                        ],
+                  // Imagen de la raza: zoom a la cabeza
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: anchoImagen,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        color: Colores.dorado.withValues(alpha: 0.12),
+                        child: Transform.scale(
+                          scale: 1.8, // cuánto zoom
+                          alignment: const Alignment(0, -1.1), // hacia dónde
+                          child: Image.asset(
+                            'assets/raza/${raza['id']}.png',
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const SizedBox(),
+                          ),
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           ),
         ],
       ),
