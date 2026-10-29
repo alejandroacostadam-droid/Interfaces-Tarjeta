@@ -52,10 +52,23 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
     }
   }
 
+  String _textoBonus(dynamic objeto) {
+    String texto = '';
+    Map<String, dynamic> bonificadores = objeto['bonificadores'];
+    bonificadores.forEach((atributo, valor) {
+      if (valor > 0) {
+        texto = '+$valor $atributo';
+      }
+    });
+    return texto;
+  }
+
   Widget _crearTarjeta(dynamic objeto) {
     return TarjetaEquipamiento(
       titulo: objeto['nombre'],
       categoria: objeto['tipo'],
+      descripcion: objeto['descripcion'],
+      bonus: _textoBonus(objeto),
       icono: _iconoObjeto(objeto['id']),
       seleccionado: _objetoSeleccionado == objeto['nombre'],
       onTap: () => _seleccionar(objeto['nombre']),
@@ -133,16 +146,19 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
         for (int i = 0; i < _objetos.length; i += 2)
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
-            child: Row(
-              children: [
-                Expanded(child: _crearTarjeta(_objetos[i])),
-                const SizedBox(width: 12.0),
-                Expanded(
-                  child: i + 1 < _objetos.length
-                      ? _crearTarjeta(_objetos[i + 1])
-                      : const SizedBox(),
-                ),
-              ],
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: _crearTarjeta(_objetos[i])),
+                  const SizedBox(width: 12.0),
+                  Expanded(
+                    child: i + 1 < _objetos.length
+                        ? _crearTarjeta(_objetos[i + 1])
+                        : const SizedBox(),
+                  ),
+                ],
+              ),
             ),
           ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personarpg/pantallas/pantalla_equipamiento.dart';
 import 'package:personarpg/pantallas/pantalla_identidad.dart';
 
 import 'design/colores.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const PantallaIdentidad(),
+      home: const PantallaEquipamiento(),
     );
   }
 }
