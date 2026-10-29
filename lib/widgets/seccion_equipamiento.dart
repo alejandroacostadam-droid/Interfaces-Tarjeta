@@ -126,24 +126,17 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
           ),
         ),
         const SizedBox(height: 14.0),
-        for (int i = 0; i < _objetos.length; i += 2)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(child: _crearTarjeta(_objetos[i])),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: i + 1 < _objetos.length
-                        ? _crearTarjeta(_objetos[i + 1])
-                        : const SizedBox(),
-                  ),
-                ],
-              ),
-            ),
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: _objetos.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: _crearTarjeta(_objetos[index]),
+            );
+          },
+        ),
       ],
     );
   }
