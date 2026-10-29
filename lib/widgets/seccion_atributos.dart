@@ -3,85 +3,23 @@ import '../design/colores.dart';
 import 'fila_atributo.dart';
 import 'tarjeta_puntos.dart';
 
-class SeccionAtributos extends StatefulWidget {
-  const SeccionAtributos({super.key});
+class SeccionAtributos extends StatelessWidget {
+  final int inteligencia;
+  final int sabiduria;
+  final int carisma;
+  final int puntosDisponibles;
+  final int puntosUsados;
+  final void Function(String atributo, int cambio) onCambiar;
 
-  @override
-  State<SeccionAtributos> createState() => _SeccionAtributosState();
-}
-
-class _SeccionAtributosState extends State<SeccionAtributos> {
-  // Variables simples de puntos
-  int puntosDisponibles = 8;
-  int puntosUsados = 0;
-
-  // Variables simples de atributos (por defecto 5 cada uno)
-  int inteligencia = 5;
-  int sabiduria = 5;
-  int carisma = 5;
-
-  // Funciones sencillas para Inteligencia
-  void incrementarInteligencia() {
-    if (puntosDisponibles > 0 && inteligencia < 16) {
-      setState(() {
-        inteligencia++;
-        puntosDisponibles--;
-        puntosUsados++;
-      });
-    }
-  }
-
-  void decrementarInteligencia() {
-    if (inteligencia > 5) {
-      setState(() {
-        inteligencia--;
-        puntosDisponibles++;
-        puntosUsados--;
-      });
-    }
-  }
-
-  // Funciones sencillas para Sabiduría
-  void incrementarSabiduria() {
-    if (puntosDisponibles > 0 && sabiduria < 16) {
-      setState(() {
-        sabiduria++;
-        puntosDisponibles--;
-        puntosUsados++;
-      });
-    }
-  }
-
-  void decrementarSabiduria() {
-    if (sabiduria > 5) {
-      setState(() {
-        sabiduria--;
-        puntosDisponibles++;
-        puntosUsados--;
-      });
-    }
-  }
-
-  // Funciones sencillas para Carisma
-  void incrementarCarisma() {
-    if (puntosDisponibles > 0 && carisma < 16) {
-      setState(() {
-        carisma++;
-        puntosDisponibles--;
-        puntosUsados++;
-      });
-    }
-  }
-
-  void decrementarCarisma() {
-    if (carisma > 5) {
-      setState(() {
-        carisma--;
-        puntosDisponibles++;
-        puntosUsados--;
-      });
-    }
-  }
+  const SeccionAtributos({
+    super.key,
+    required this.inteligencia,
+    required this.sabiduria,
+    required this.carisma,
+    required this.puntosDisponibles,
+    required this.puntosUsados,
+    required this.onCambiar,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,24 +68,24 @@ class _SeccionAtributosState extends State<SeccionAtributos> {
           nombre: 'Inteligencia',
           descripcion: 'Conocimiento y poder mágico',
           valor: inteligencia,
-          onIncrementar: incrementarInteligencia,
-          onDecrementar: decrementarInteligencia,
+          onIncrementar: () => onCambiar('inteligencia', 1),
+          onDecrementar: () => onCambiar('inteligencia', -1),
         ),
         const SizedBox(height: 18.0),
         FilaAtributo(
           nombre: 'Sabiduría',
           descripcion: 'Percepción e intuición',
           valor: sabiduria,
-          onIncrementar: incrementarSabiduria,
-          onDecrementar: decrementarSabiduria,
+          onIncrementar: () => onCambiar('sabiduria', 1),
+          onDecrementar: () => onCambiar('sabiduria', -1),
         ),
         const SizedBox(height: 18.0),
         FilaAtributo(
           nombre: 'Carisma',
           descripcion: 'Presencia y persuasión',
           valor: carisma,
-          onIncrementar: incrementarCarisma,
-          onDecrementar: decrementarCarisma,
+          onIncrementar: () => onCambiar('carisma', 1),
+          onDecrementar: () => onCambiar('carisma', -1),
         ),
       ],
     );

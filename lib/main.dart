@@ -25,7 +25,21 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const PantallaEquipamiento(),
+      home: PantallaEquipamiento(
+        personaje: {
+          'nombre': '',
+          'biografia': '',
+          'raza': '',
+          'clase': '',
+          'objeto': '',
+          'fuerza': 5,
+          'destreza': 5,
+          'constitucion': 5,
+          'inteligencia': 5,
+          'sabiduria': 5,
+          'carisma': 5,
+        },
+      ),
     );
   }
 }
