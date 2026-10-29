@@ -112,19 +112,17 @@ class _SeccionRazaState extends State<SeccionRaza> {
         for (int i = 0; i < _razas.length; i += 2)
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(child: _crearTarjeta(_razas[i])),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: i + 1 < _razas.length
-                        ? _crearTarjeta(_razas[i + 1])
-                        : const SizedBox(),
-                  ),
-                ],
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: _crearTarjeta(_razas[i])),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: i + 1 < _razas.length
+                      ? _crearTarjeta(_razas[i + 1])
+                      : const SizedBox(),
+                ),
+              ],
             ),
           ),
         // El preview solo sale cuando ya se han cargado las razas
