@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personarpg/pantallas/pantalla_equipamiento.dart';
 import 'package:personarpg/pantallas/pantalla_identidad.dart';
+import 'package:personarpg/pantallas/pantalla4.dart';
 
 import 'design/colores.dart';
 
@@ -25,21 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: PantallaEquipamiento(
-        personaje: {
-          'nombre': '',
-          'biografia': '',
-          'raza': '',
-          'clase': '',
-          'objeto': '',
-          'fuerza': 5,
-          'destreza': 5,
-          'constitucion': 5,
-          'inteligencia': 5,
-          'sabiduria': 5,
-          'carisma': 5,
-        },
-      ),
+      home: const PantallaFinal(),
     );
   }
 }

@@ -52,7 +52,7 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Pantalla4(personaje: widget.personaje),
+        builder: (context) => PantallaFinal(personaje: widget.personaje),
       ),
     );
   }

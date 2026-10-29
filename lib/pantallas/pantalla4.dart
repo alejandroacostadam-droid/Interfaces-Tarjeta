@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
-import '../widgets/tarjeta_atributos_mentales.dart';
-import '../widgets/tarjeta_equipamiento_final.dart';
+import '../widgets/cabecera4.dart';
+import '../widgets/tarjeta_resumen.dart';
+import '../widgets/tarjeta_raza_clase.dart';
 
-class Pantalla4 extends StatelessWidget {
-  final Map<String, dynamic> personaje;
+class PantallaFinal extends StatelessWidget {
+  // El personaje que llega de la pantalla 3.
+  // Es opcional SOLO mientras las demás pantallas no lo pasan:
+  // si no llega, se usan los datos de prueba de abajo.
+  final Map<String, dynamic>? personaje;
 
-  const Pantalla4({super.key, required this.personaje});
+  const PantallaFinal({super.key, this.personaje});
+
+  // PROVISIONAL: borrar cuando la pantalla 3 pase el personaje
+  static const Map<String, dynamic> _personajePrueba = {
+    'nombre': 'Eira Thorne',
+    'biografia': 'Nacida en el norte, Eira creció entre historias de exploración y magia. Busca descubrir su lugar en el mundo y proteger a quienes la rodean.',
+    'raza': 'Elfo',
+    'clase': 'Guardián',
+    'fuerza': 5,
+    'destreza': 6,
+    'constitucion': 5,
+    'inteligencia': 7,
+    'sabiduria': 5,
+    'carisma': 4,
+    'objeto': 'Bastón mágico',
+  };
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> datos = personaje ?? _personajePrueba;
+
     return Scaffold(
       backgroundColor: Colores.fondo,
       body: SafeArea(
@@ -19,13 +40,11 @@ class Pantalla4 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TarjetaAtributosMentales(
-                inteligencia: personaje['inteligencia'],
-                sabiduria: personaje['sabiduria'],
-                carisma: personaje['carisma'],
-              ),
+              Cabecera4(),
               const SizedBox(height: 16.0),
-              TarjetaEquipamientoFinal(objeto: personaje['objeto']),
+              TarjetaResumen(personaje: datos),
+              const SizedBox(height: 16.0),
+              TarjetaRazaClase(personaje: datos),
             ],
           ),
         ),
