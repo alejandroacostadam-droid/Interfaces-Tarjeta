@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import '../design/colores.dart';
 
 class TarjetaAtributosMentales extends StatelessWidget {
-  const TarjetaAtributosMentales({super.key});
+  final int inteligencia;
+  final int sabiduria;
+  final int carisma;
+
+  const TarjetaAtributosMentales({
+    super.key,
+    required this.inteligencia,
+    required this.sabiduria,
+    required this.carisma,
+  });
 
   Widget _filaAtributo(String nombre, String descripcion, String valor) {
     return Row(
       children: [
         Expanded(
           child: Column(
-            
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -105,11 +113,11 @@ class TarjetaAtributosMentales extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14.0),
-          _filaAtributo('Inteligencia', 'Magia, control y capacidad mental.', '+1'),
+          _filaAtributo('Inteligencia', 'Magia, control y capacidad mental.', '+${inteligencia - 5}'),
           const SizedBox(height: 12.0),
-          _filaAtributo('Sabiduría', 'Percepción, intuición y resistencia mental.', '+5'),
+          _filaAtributo('Sabiduría', 'Percepción, intuición y resistencia mental.', '+${sabiduria - 5}'),
           const SizedBox(height: 12.0),
-          _filaAtributo('Carisma', 'Persuasión, liderazgo y presencia social.', '+0'),
+          _filaAtributo('Carisma', 'Persuasión, liderazgo y presencia social.', '+${carisma - 5}'),
         ],
       ),
     );
