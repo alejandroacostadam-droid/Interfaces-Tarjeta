@@ -4,6 +4,8 @@ import '../design/colores.dart';
 import '../widgets/cabecera4.dart';
 import '../widgets/tarjeta_resumen.dart';
 import '../widgets/tarjeta_raza_clase.dart';
+import '../widgets/tarjeta_atributos_mentales.dart';
+import '../widgets/tarjeta_equipamiento_final.dart';
 
 class PantallaFinal extends StatelessWidget {
   // El personaje que llega de la pantalla 3.
@@ -25,7 +27,7 @@ class PantallaFinal extends StatelessWidget {
     'inteligencia': 7,
     'sabiduria': 5,
     'carisma': 4,
-    'objeto': 'Bastón mágico',
+    'objeto': 'baston',
   };
 
   @override
@@ -45,6 +47,14 @@ class PantallaFinal extends StatelessWidget {
               TarjetaResumen(personaje: datos),
               const SizedBox(height: 16.0),
               TarjetaRazaClase(personaje: datos),
+              const SizedBox(height: 16.0),
+              TarjetaAtributosMentales(
+                inteligencia: datos['inteligencia'],
+                sabiduria: datos['sabiduria'],
+                carisma: datos['carisma'],
+              ),
+              const SizedBox(height: 16.0),
+              TarjetaEquipamientoFinal(objeto: datos['objeto']),
             ],
           ),
         ),
