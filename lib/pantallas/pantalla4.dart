@@ -1,3 +1,5 @@
+import '../widgets/seccionAtributos4.dart';
+
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
@@ -44,6 +46,7 @@ class PantallaFinal extends StatelessWidget {
               const SizedBox(height: 16.0),
               TarjetaResumen(personaje: datos),
               const SizedBox(height: 16.0),
+              //SeccionAtributos4(),
               TarjetaRazaClase(personaje: datos),
             ],
           ),
