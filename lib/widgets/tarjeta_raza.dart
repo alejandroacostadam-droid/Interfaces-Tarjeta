@@ -24,6 +24,7 @@ class TarjetaRaza extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        constraints: const BoxConstraints(minHeight: 115.0),
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           color: seleccionado ? Colores.dorado.withValues(alpha: 0.12) : null,

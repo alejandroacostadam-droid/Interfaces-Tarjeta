@@ -112,7 +112,8 @@ class _SeccionRazaState extends State<SeccionRaza> {
         for (int i = 0; i < _razas.length; i += 2)
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
-            child: IntrinsicHeight(
+            child: SizedBox(
+              height: 125.0,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
