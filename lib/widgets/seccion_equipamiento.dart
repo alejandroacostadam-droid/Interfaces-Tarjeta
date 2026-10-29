@@ -73,6 +73,105 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
     );
   }
 
+  Widget _crearDetalle() {
+    dynamic objetoElegido;
+    for (var objeto in _objetos) {
+      if (objeto['id'] == widget.objetoSeleccionado) {
+        objetoElegido = objeto;
+      }
+    }
+
+    if (objetoElegido == null) {
+      return const Text(
+        'Selecciona un objeto para ver sus detalles.',
+        style: TextStyle(
+          fontSize: 12.0,
+          fontWeight: FontWeight.w400,
+          color: Colores.textoSecundario,
+        ),
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: Colores.superficieSeleccionada,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: Colores.dorado,
+          width: 1.0,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 72.0,
+            height: 72.0,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Colores.superficie,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Image.asset(
+              'assets/objetos/${objetoElegido['id']}.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                _iconoObjeto(objetoElegido['id']),
+                size: 36.0,
+                color: Colores.dorado,
+              ),
+            ),
+          ),
+          const SizedBox(width: 14.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Objeto elegido',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colores.textoSecundario,
+                  ),
+                ),
+                const SizedBox(height: 2.0),
+                Text(
+                  objetoElegido['nombre'],
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colores.textoPrincipal,
+                  ),
+                ),
+                const SizedBox(height: 2.0),
+                Text(
+                  '${objetoElegido['tipo']} · ${_textoBonus(objetoElegido)}',
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colores.dorado,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  objetoElegido['descripcion'],
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w400,
+                    color: Colores.textoSecundario,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -137,6 +236,8 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
             );
           },
         ),
+        const SizedBox(height: 4.0),
+        _crearDetalle(),
       ],
     );
   }
