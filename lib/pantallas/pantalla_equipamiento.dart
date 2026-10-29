@@ -5,6 +5,7 @@ import '../widgets/botones_inferiores.dart';
 import '../widgets/cabecera.dart';
 import '../widgets/seccion_atributos.dart';
 import '../widgets/seccion_equipamiento.dart';
+import 'pantalla4.dart';
 
 class PantallaEquipamiento extends StatefulWidget {
   final Map<String, dynamic> personaje;
@@ -47,6 +48,19 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
     });
   }
 
+  void _irAFicha() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Pantalla4(personaje: widget.personaje),
+      ),
+    );
+  }
+
+  void _volver() {
+    Navigator.maybePop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +87,10 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
                 onCambiar: _cambiarAtributo,
               ),
               const SizedBox(height: 24.0),
-              const BotonesInferiores(),
+              BotonesInferiores(
+                onContinuar: _irAFicha,
+                onVolver: _volver,
+              ),
             ],
           ),
         ),
