@@ -7,7 +7,9 @@ class FilaAtributo2 extends StatelessWidget {
   final String textoValor;
   final bool seleccionado;
   final String descripcion;
-  final String valor;
+  final int valor;
+  final VoidCallback suma;
+  final VoidCallback resta;
 
   const FilaAtributo2({
     super.key,
@@ -16,6 +18,8 @@ class FilaAtributo2 extends StatelessWidget {
     required this.seleccionado,
     required this.descripcion,
     required this.valor,
+    required this.suma,
+    required this.resta,
   });
 
   @override
@@ -26,7 +30,7 @@ class FilaAtributo2 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 3.5),
+              const SizedBox(height: 3.5),
               Text(
                 nombre,
                 style: const TextStyle(
@@ -40,7 +44,7 @@ class FilaAtributo2 extends StatelessWidget {
                 textoValor,
                 style: TextStyle(
                   fontSize: 11.0,
-                  fontWeight: seleccionado ? FontWeight.bold : FontWeight.w400,
+                  fontWeight: seleccionado ? FontWeight.bold : FontWeight.w300,
                   color: seleccionado
                       ? Colores.dorado
                       : Colores.textoSecundario,
@@ -60,25 +64,30 @@ class FilaAtributo2 extends StatelessWidget {
         ),
         Row(
           children: [
-            Container(
-              width: 36.0,
-              height: 36.0,
-              decoration: BoxDecoration(
-                color: Colores.superficie,
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colores.borde, width: 1.0),
-              ),
-              child: const Icon(
-                Icons.remove,
-                size: 16.0,
-                color: Colores.textoSecundario,
+            // Botón resta -
+            GestureDetector(
+              onTap: resta,
+              child: Container(
+                width: 36.0,
+                height: 36.0,
+                decoration: BoxDecoration(
+                  color: Colores.superficie,
+                  borderRadius: BorderRadius.circular(6.0),
+                  border: Border.all(color: Colores.borde, width: 1.0),
+                ),
+                child: const Icon(
+                  Icons.remove,
+                  size: 16.0,
+                  color: Colores.textoSecundario,
+                ),
               ),
             ),
+            // Valor de puntos
             Container(
               width: 38.0,
               alignment: Alignment.center,
               child: Text(
-                valor,
+                '$valor',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -86,18 +95,22 @@ class FilaAtributo2 extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: 36.0,
-              height: 36.0,
-              decoration: BoxDecoration(
-                color: Colores.superficie,
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colores.borde, width: 1.0),
-              ),
-              child: const Icon(
-                Icons.add,
-                size: 16.0,
-                color: Colores.textoSecundario,
+            // Botón suma +
+            GestureDetector(
+              onTap: suma,
+              child: Container(
+                width: 36.0,
+                height: 36.0,
+                decoration: BoxDecoration(
+                  color: Colores.superficie,
+                  borderRadius: BorderRadius.circular(6.0),
+                  border: Border.all(color: Colores.borde, width: 1.0),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 16.0,
+                  color: Colores.textoSecundario,
+                ),
               ),
             ),
           ],

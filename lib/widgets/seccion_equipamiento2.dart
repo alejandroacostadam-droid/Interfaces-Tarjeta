@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import '../design/colores.dart';
 import 'tarjeta_equipamiento2.dart';
 
-class SeccionEquipamiento2 extends StatelessWidget {
+class SeccionEquipamiento2 extends StatefulWidget {
   const SeccionEquipamiento2({super.key});
+
+  @override
+  State<SeccionEquipamiento2> createState() => _SeccionEquipamiento2State();
+}
+
+class _SeccionEquipamiento2State extends State<SeccionEquipamiento2> {
+  String claseSeleccionada = 'Arcano';
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +73,13 @@ class SeccionEquipamiento2 extends StatelessWidget {
               child: TarjetaEquipamiento2(
                 titulo: 'Guardián',
                 categoria: 'Defensa y resistencia',
-                seleccionado: false,
+                seleccionado: claseSeleccionada == 'Guardián',
                 iconos: Icons.shield,
+                toque: () {
+                  setState(() {
+                    claseSeleccionada = 'Guardián';
+                  });
+                },
               ),
             ),
             SizedBox(width: 12.0),
@@ -75,8 +87,13 @@ class SeccionEquipamiento2 extends StatelessWidget {
               child: TarjetaEquipamiento2(
                 titulo: 'Cazador',
                 categoria: 'Movilidad y precisión',
-                seleccionado: false,
+                seleccionado: claseSeleccionada == 'Cazador',
                 iconos: Icons.browse_gallery,
+                toque: () {
+                  setState(() {
+                    claseSeleccionada = 'Cazador';
+                  });
+                },
               ),
             ),
           ],
@@ -88,8 +105,13 @@ class SeccionEquipamiento2 extends StatelessWidget {
               child: TarjetaEquipamiento2(
                 titulo: 'Arcano',
                 categoria: 'Magia y control',
-                seleccionado: true,
+                seleccionado: claseSeleccionada == 'Arcano',
                 iconos: Icons.book,
+                toque: () {
+                  setState(() {
+                    claseSeleccionada = 'Arcano';
+                  });
+                },
               ),
             ),
             SizedBox(width: 12.0),
@@ -97,8 +119,13 @@ class SeccionEquipamiento2 extends StatelessWidget {
               child: TarjetaEquipamiento2(
                 titulo: 'Bardo',
                 categoria: 'Versatilidad y apoyo',
-                seleccionado: false,
+                seleccionado: claseSeleccionada == 'Bardo',
                 iconos: Icons.auto_fix_high,
+                toque: () {
+                  setState(() {
+                    claseSeleccionada = 'Bardo';
+                  });
+                },
               ),
             ),
           ],

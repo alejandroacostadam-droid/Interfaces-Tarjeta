@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:personarpg/widgets/cabecera2.dart';
-import 'package:personarpg/widgets/tarjeta_equipamiento2.dart';
 
 import '../design/colores.dart';
 import '../widgets/botones_inferiores2.dart';

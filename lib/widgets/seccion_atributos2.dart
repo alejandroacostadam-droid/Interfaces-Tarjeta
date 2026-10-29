@@ -1,12 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:personarpg/widgets/tarjeta_equipamiento2.dart';
 
 import '../design/colores.dart';
 import 'fila_atributo2.dart';
-import 'tarjeta_puntos2.dart';
 
-class SeccionAtributos2 extends StatelessWidget {
+class SeccionAtributos2 extends StatefulWidget {
   const SeccionAtributos2({super.key});
+
+  @override
+  State<SeccionAtributos2> createState() => _SeccionAtributos2State();
+}
+
+class _SeccionAtributos2State extends State<SeccionAtributos2> {
+  static const int valorBase = 0; // Valor mínimo de cada atributo
+  static const int puntosTotales = 10; // Puntos que se pueden repartir
+
+  // Esto es el estado de la pantalla: un Map que va a guardar el valor actual de cada atributo
+  //String e int, el nombre y el valor de cada atributo
+  final Map<String, int> valores = {
+    'Destreza': 0,
+    'Fuerza': 0,
+    'Resistencia': 0,
+    'Velocidad': 0,
+  };
+
+  // get es una variable que se calcula cada vez que la lees
+  // fold recorre todos los valores y los va sumando:
+  // el primer 0 es el valor desde el q parto, suma es el valor actual y v el valor del map por el q voy
+  int get puntosUtilizados =>
+      valores.values.fold(0, (suma, v) => suma + (v - valorBase));
+
+  // Lo que queda por repartir
+  int get puntosDisponibles => puntosTotales - puntosUtilizados;
+
+  // Se ejecuta al pulsar + de cualquier fila
+  void _sumar(String nombre) {
+    // Solo suma si quedan puntos por repartir
+    if (puntosDisponibles > 0) {
+      // La ! le dice a Dart que ese nombre seguro existe en el Map
+      setState(() => valores[nombre] = valores[nombre]! + 1);
+    }
+  }
+
+  // Se ejecuta al pulsar -
+  void _restar(String nombre) {
+    if (valores[nombre]! > valorBase) {
+      setState(() => valores[nombre] = valores[nombre]! - 1);
+    }
+  }
+
+  // Método auxiliar: construye una fila a partir del nombre y la
+  // descripción
+  Widget _construirFila(String nombre, String descripcion) {
+    // Puntos gastados en el atributo(destreza, fuerza, ...) (valor actual - base).
+    final int asignados = valores[nombre]! - valorBase;
+
+    return FilaAtributo2(
+      nombre: nombre,
+      // Si hay puntos gastados muestra cuantos son, sino el valor base
+      textoValor: asignados > 0
+          ? '+$asignados puntos asignados'
+          : '$asignados puntos asignados',
+      // Se pone dorado y en negrita solo si hay puntos asignados
+      seleccionado: asignados > 0,
+      descripcion: descripcion,
+      valor: valores[nombre]!,
+      // () => ... crea una función pequeña que la fila ejecutará al
+      // pulsar. Así le decimos al padre QUÉ atributo se ha tocado.
+      suma: () => _sumar(nombre),
+      resta: () => _restar(nombre),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +80,8 @@ class SeccionAtributos2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           textBaseline: TextBaseline.alphabetic,
-          children: const [
-            Row(
+          children: [
+            const Row(
               children: [
                 SizedBox(height: 45.0),
                 Text(
@@ -43,8 +106,9 @@ class SeccionAtributos2 extends StatelessWidget {
               ],
             ),
             Text(
-              '5 / 10 puntos',
-              style: TextStyle(
+              // Son los valores actuales
+              '$puntosUtilizados / $puntosTotales puntos',
+              style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
                 color: Colores.textoSecundario,
@@ -70,43 +134,41 @@ class SeccionAtributos2 extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Puntos disponibles',
                     style: TextStyle(
                       fontSize: 11.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                       color: Colores.textoSecundario,
                     ),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
-                    '5',
-                    style: TextStyle(
+                    '$puntosDisponibles',
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
-                      color: Colores.dorado, // El número resaltado en dorado
+                      color: Colores.dorado,
                     ),
                   ),
                 ],
               ),
-
-              // Columna derecha: Puntos utilizados
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Puntos utilizados',
                     style: TextStyle(
                       fontSize: 11.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                       color: Colores.textoSecundario,
                     ),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
-                    '5',
-                    style: TextStyle(
+                    '$puntosUtilizados',
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                       color: Colores.textoPrincipal,
@@ -117,46 +179,23 @@ class SeccionAtributos2 extends StatelessWidget {
             ],
           ),
         ),
-        const FilaAtributo2(
-          nombre: 'Destreza',
-          textoValor: '+4 puntos asignados',
-          seleccionado: true,
-          descripcion: 'Conocimiento y poder mágico',
-          valor: '12',
-        ),
+        // Las 4 filas usan el método auxiliar de arriba.
+        _construirFila('Destreza', 'Conocimiento y poder mágico'),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 14.0),
           child: Divider(color: Colores.borde, thickness: 0.5, height: 1.0),
         ),
-        const FilaAtributo2(
-          nombre: 'Fuerza',
-          textoValor: '+2 Puntos asignados',
-          seleccionado: false,
-          descripcion: 'Percepción e intuición',
-          valor: '10',
-        ),
+        _construirFila('Fuerza', 'Percepción e intuición'),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 14.0),
           child: Divider(color: Colores.borde, thickness: 0.5, height: 1.0),
         ),
-        const FilaAtributo2(
-          nombre: 'Resistencia',
-          textoValor: 'Valor base',
-          seleccionado: false,
-          descripcion: 'Presencia y persuasión',
-          valor: '8',
-        ),
+        _construirFila('Resistencia', 'Presencia y persuasión'),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 14.0),
           child: Divider(color: Colores.borde, thickness: 0.5, height: 1.0),
         ),
-        const FilaAtributo2(
-          nombre: 'Velocidad',
-          textoValor: 'Valor base',
-          seleccionado: false,
-          descripcion: 'Presencia y persuasión',
-          valor: '8',
-        ),
+        _construirFila('Velocidad', 'Presencia y persuasión'),
       ],
     );
   }

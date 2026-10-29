@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
-import 'tarjeta_equipamiento2.dart';
 
 class BotonesInferiores2 extends StatelessWidget {
   const BotonesInferiores2({super.key});
