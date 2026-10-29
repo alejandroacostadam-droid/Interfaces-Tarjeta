@@ -7,9 +7,9 @@ import '../widgets/seccion_atributos2.dart';
 import '../widgets/seccion_equipamiento2.dart';
 
 class Pantalla2 extends StatelessWidget {
-  final Map<String, dynamic> personaje;
+  //final Map<String, dynamic> personaje;
 
-  const Pantalla2({super.key, required this.personaje});
+  const Pantalla2({super.key /*, required this.personaje*/});
 
   @override
   Widget build(BuildContext context) {

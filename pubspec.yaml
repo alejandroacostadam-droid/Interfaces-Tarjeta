@@ -60,7 +60,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/data/
+    - assets/data/clases.json
     - assets/raza/
 
   # To add assets to your application, add an assets section, like this:
