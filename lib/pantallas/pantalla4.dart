@@ -1,37 +1,52 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
-import '../widgets/botones_inferiores.dart';
-import '../widgets/cabecera.dart';
-import '../widgets/seccion_atributos.dart';
-import '../widgets/seccion_equipamiento.dart';
+import '../widgets/cabecera4.dart';
+import '../widgets/tarjeta_resumen.dart';
+import '../widgets/tarjeta_raza_clase.dart';
 
-class PantallaEquipamiento extends StatefulWidget {
-  final ValueChanged<String>? onObjetoSeleccionado;
+class PantallaFinal extends StatelessWidget {
+  // El personaje que llega de la pantalla 3.
+  // Es opcional SOLO mientras las demás pantallas no lo pasan:
+  // si no llega, se usan los datos de prueba de abajo.
+  final Map<String, dynamic>? personaje;
 
-  const PantallaEquipamiento({super.key, this.onObjetoSeleccionado});
+  const PantallaFinal({super.key, this.personaje});
 
-  @override
-  State<PantallaEquipamiento> createState() => _PantallaEquipamientoState();
-}
-
-class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
-  String _objetoSeleccionado = 'Bastón mágico';
-
-  void _onEquipamientoCambiado(String nuevoObjeto) {
-    setState(() {
-      _objetoSeleccionado = nuevoObjeto;
-    });
-    widget.onObjetoSeleccionado?.call(nuevoObjeto);
-  }
+  // PROVISIONAL: borrar cuando la pantalla 3 pase el personaje
+  static const Map<String, dynamic> _personajePrueba = {
+    'nombre': 'Eira Thorne',
+    'biografia': 'Nacida en el norte, Eira creció entre historias de exploración y magia. Busca descubrir su lugar en el mundo y proteger a quienes la rodean.',
+    'raza': 'Elfo',
+    'clase': 'Guardián',
+    'fuerza': 5,
+    'destreza': 6,
+    'constitucion': 5,
+    'inteligencia': 7,
+    'sabiduria': 5,
+    'carisma': 4,
+    'objeto': 'Bastón mágico',
+  };
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> datos = personaje ?? _personajePrueba;
+
     return Scaffold(
       backgroundColor: Colores.fondo,
       body: SafeArea(
         child: SingleChildScrollView(
-          
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Cabecera4(),
+              const SizedBox(height: 16.0),
+              TarjetaResumen(personaje: datos),
+              const SizedBox(height: 16.0),
+              TarjetaRazaClase(personaje: datos),
+            ],
+          ),
         ),
       ),
     );
