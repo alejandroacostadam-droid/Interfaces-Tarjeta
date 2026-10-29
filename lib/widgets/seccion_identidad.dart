@@ -4,7 +4,14 @@ import '../design/tipografia.dart';
 import '../design/colores.dart';
 
 class SeccionIdentidad extends StatelessWidget {
-  const SeccionIdentidad({super.key});
+  final ValueChanged<String>? onNombreCambiado;
+  final ValueChanged<String>? onBiografiaCambiada;
+
+  const SeccionIdentidad({
+    super.key,
+    this.onNombreCambiado,
+    this.onBiografiaCambiada,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,12 @@ class SeccionIdentidad extends StatelessWidget {
           children: [
             Text('01', style: Tipografia.numeroSeccion),
             const SizedBox(width: 10.0),
-            Text('Identidad del personaje', style: Tipografia.tituloSeccion),
+            Flexible(
+              child: Text(
+                'Identidad del personaje',
+                style: Tipografia.tituloSeccion,
+              ),
+            ),
           ],
         ),
         Text(
@@ -29,6 +41,7 @@ class SeccionIdentidad extends StatelessWidget {
             Text('NOMBRE DEL PERSONAJE', style: Tipografia.titulillo),
             const SizedBox(height: 5.0),
             TextField(
+              onChanged: onNombreCambiado,
               decoration: InputDecoration(
                 hintText: 'Eira Thorne',
                 hintStyle: Tipografia.descripcionSeccion,
@@ -51,6 +64,7 @@ class SeccionIdentidad extends StatelessWidget {
             Text('BREVE BIOGRAFÍA', style: Tipografia.titulillo),
             const SizedBox(height: 5.0),
             TextField(
+              onChanged: onBiografiaCambiada,
               minLines: 4,
               maxLines: 4,
               decoration: InputDecoration(
