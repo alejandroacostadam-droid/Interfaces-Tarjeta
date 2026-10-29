@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../design/colores.dart';
-import '../pantallas/pantalla2.dart';
 
 class BotonInf extends StatelessWidget {
-  const BotonInf({super.key});
+  final VoidCallback? onPressed;
+
+  const BotonInf({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +14,7 @@ class BotonInf extends StatelessWidget {
         const Divider(color: Colores.borde, thickness: 1.0, height: 1.0),
         const SizedBox(height: 24.0),
         GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Pantalla2()),
-            );
-          },
+          onTap: onPressed,
           child: Container(
             width: double.infinity,
             height: 48.0,

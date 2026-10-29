@@ -33,6 +33,16 @@ class _SeccionRazaState extends State<SeccionRaza> {
     setState(() {
       _razas = jsonDecode(texto);
     });
+
+    // Avisamos de la raza que sale marcada al empezar,
+    // para que se guarde aunque el usuario no toque ninguna
+    if (_razas.isNotEmpty) {
+      final inicial = _razas.firstWhere(
+        (raza) => raza['id'] == _razaSeleccionada,
+        orElse: () => _razas.first,
+      );
+      widget.onRazaSeleccionada?.call(inicial);
+    }
   }
 
   IconData _iconoRaza(String id) {
@@ -86,7 +96,12 @@ class _SeccionRazaState extends State<SeccionRaza> {
           children: [
             Text('02', style: Tipografia.numeroSeccion),
             const SizedBox(width: 10.0),
-            Text('Selecciona una raza', style: Tipografia.tituloSeccion),
+            Flexible(
+              child: Text(
+                'Selecciona una raza',
+                style: Tipografia.tituloSeccion,
+              ),
+            ),
           ],
         ),
         Text(
