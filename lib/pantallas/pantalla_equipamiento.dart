@@ -5,24 +5,60 @@ import '../widgets/botones_inferiores.dart';
 import '../widgets/cabecera.dart';
 import '../widgets/seccion_atributos.dart';
 import '../widgets/seccion_equipamiento.dart';
+import 'pantalla4.dart';
 
 class PantallaEquipamiento extends StatefulWidget {
-  final ValueChanged<String>? onObjetoSeleccionado;
+  final Map<String, dynamic> personaje;
 
-  const PantallaEquipamiento({super.key, this.onObjetoSeleccionado});
+  const PantallaEquipamiento({super.key, required this.personaje});
 
   @override
   State<PantallaEquipamiento> createState() => _PantallaEquipamientoState();
 }
 
 class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
-  String _objetoSeleccionado = 'Bastón mágico';
+  final int puntosTotales = 8;
 
-  void _onEquipamientoCambiado(String nuevoObjeto) {
+  int _puntosUsados() {
+    return widget.personaje['inteligencia'] +
+        widget.personaje['sabiduria'] +
+        widget.personaje['carisma'] -
+        15;
+  }
+
+  void _cambiarObjeto(String id) {
     setState(() {
-      _objetoSeleccionado = nuevoObjeto;
+      widget.personaje['objeto'] = id;
     });
-    widget.onObjetoSeleccionado?.call(nuevoObjeto);
+  }
+
+  void _cambiarAtributo(String atributo, int cambio) {
+    int valor = widget.personaje[atributo];
+    int puntosDisponibles = puntosTotales - _puntosUsados();
+
+    if (cambio > 0 && (puntosDisponibles == 0 || valor == 16)) {
+      return;
+    }
+    if (cambio < 0 && valor == 5) {
+      return;
+    }
+
+    setState(() {
+      widget.personaje[atributo] = valor + cambio;
+    });
+  }
+
+  void _irAFicha() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PantallaFinal(personaje: widget.personaje),
+      ),
+    );
+  }
+
+  void _volver() {
+    Navigator.maybePop(context);
   }
 
   @override
@@ -38,13 +74,23 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
               const Cabecera(),
               const SizedBox(height: 24.0),
               SeccionEquipamiento(
-                objetoInicial: _objetoSeleccionado,
-                onObjetoSeleccionado: _onEquipamientoCambiado,
+                objetoSeleccionado: widget.personaje['objeto'],
+                onObjetoSeleccionado: _cambiarObjeto,
               ),
               const SizedBox(height: 28.0),
-              const SeccionAtributos(),
+              SeccionAtributos(
+                inteligencia: widget.personaje['inteligencia'],
+                sabiduria: widget.personaje['sabiduria'],
+                carisma: widget.personaje['carisma'],
+                puntosDisponibles: puntosTotales - _puntosUsados(),
+                puntosUsados: _puntosUsados(),
+                onCambiar: _cambiarAtributo,
+              ),
               const SizedBox(height: 24.0),
-              const BotonesInferiores(),
+              BotonesInferiores(
+                onContinuar: _irAFicha,
+                onVolver: _volver,
+              ),
             ],
           ),
         ),

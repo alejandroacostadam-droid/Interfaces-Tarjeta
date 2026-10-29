@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personarpg/pantallas/pantalla2.dart';
+import 'package:personarpg/pantallas/pantalla_equipamiento.dart';
+import 'package:personarpg/pantallas/pantalla_identidad.dart';
 import 'package:personarpg/pantallas/pantalla4.dart';
 import 'package:personarpg/pantallas/pantalla_identidad.dart';
 

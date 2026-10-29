@@ -6,13 +6,13 @@ import '../design/colores.dart';
 import 'tarjeta_equipamiento.dart';
 
 class SeccionEquipamiento extends StatefulWidget {
-  final String? objetoInicial;
-  final ValueChanged<String>? onObjetoSeleccionado;
+  final String objetoSeleccionado;
+  final ValueChanged<String> onObjetoSeleccionado;
 
   const SeccionEquipamiento({
     super.key,
-    this.objetoInicial,
-    this.onObjetoSeleccionado,
+    required this.objetoSeleccionado,
+    required this.onObjetoSeleccionado,
   });
 
   @override
@@ -20,13 +20,11 @@ class SeccionEquipamiento extends StatefulWidget {
 }
 
 class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
-  late String _objetoSeleccionado;
   List<dynamic> _objetos = [];
 
   @override
   void initState() {
     super.initState();
-    _objetoSeleccionado = widget.objetoInicial ?? 'Bastón mágico';
     _cargarObjetos();
   }
 
@@ -52,29 +50,27 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
     }
   }
 
+  String _textoBonus(dynamic objeto) {
+    String texto = '';
+    Map<String, dynamic> bonificadores = objeto['bonificadores'];
+    bonificadores.forEach((atributo, valor) {
+      if (valor > 0) {
+        texto = '+$valor $atributo';
+      }
+    });
+    return texto;
+  }
+
   Widget _crearTarjeta(dynamic objeto) {
     return TarjetaEquipamiento(
       titulo: objeto['nombre'],
       categoria: objeto['tipo'],
+      descripcion: objeto['descripcion'],
+      bonus: _textoBonus(objeto),
       icono: _iconoObjeto(objeto['id']),
-      seleccionado: _objetoSeleccionado == objeto['nombre'],
-      onTap: () => _seleccionar(objeto['nombre']),
+      seleccionado: widget.objetoSeleccionado == objeto['id'],
+      onTap: () => widget.onObjetoSeleccionado(objeto['id']),
     );
-  }
-
-  @override
-  void didUpdateWidget(covariant SeccionEquipamiento oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.objetoInicial != null && widget.objetoInicial != _objetoSeleccionado) {
-      _objetoSeleccionado = widget.objetoInicial!;
-    }
-  }
-
-  void _seleccionar(String objeto) {
-    setState(() {
-      _objetoSeleccionado = objeto;
-    });
-    widget.onObjetoSeleccionado?.call(objeto);
   }
 
   @override
@@ -130,21 +126,17 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
           ),
         ),
         const SizedBox(height: 14.0),
-        for (int i = 0; i < _objetos.length; i += 2)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Row(
-              children: [
-                Expanded(child: _crearTarjeta(_objetos[i])),
-                const SizedBox(width: 12.0),
-                Expanded(
-                  child: i + 1 < _objetos.length
-                      ? _crearTarjeta(_objetos[i + 1])
-                      : const SizedBox(),
-                ),
-              ],
-            ),
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: _objetos.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: _crearTarjeta(_objetos[index]),
+            );
+          },
+        ),
       ],
     );
   }

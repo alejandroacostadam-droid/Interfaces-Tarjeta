@@ -4,6 +4,8 @@ import '../design/colores.dart';
 class TarjetaEquipamiento extends StatelessWidget {
   final String titulo;
   final String categoria;
+  final String descripcion;
+  final String bonus;
   final IconData icono;
   final bool seleccionado;
   final VoidCallback? onTap;
@@ -12,6 +14,8 @@ class TarjetaEquipamiento extends StatelessWidget {
     super.key,
     required this.titulo,
     required this.categoria,
+    required this.descripcion,
+    required this.bonus,
     required this.icono,
     required this.seleccionado,
     this.onTap,
@@ -86,6 +90,24 @@ class TarjetaEquipamiento extends StatelessWidget {
                 fontSize: 10.0,
                 fontWeight: FontWeight.w400,
                 color: Colores.textoSecundario,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              descripcion,
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w400,
+                color: Colores.textoSecundario,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              bonus,
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+                color: Colores.dorado,
               ),
             ),
           ],
