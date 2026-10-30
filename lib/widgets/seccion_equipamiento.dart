@@ -94,80 +94,114 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(14.0),
+      padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Colores.superficieSeleccionada,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(15.0),
         border: Border.all(
-          color: Colores.dorado,
+          color: Colores.borde,
           width: 1.0,
         ),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 72.0,
-            height: 72.0,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: Colores.superficie,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Image.asset(
-              'assets/objetos/${objetoElegido['id']}.png',
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Icon(
-                _iconoObjeto(objetoElegido['id']),
-                size: 36.0,
-                color: Colores.dorado,
-              ),
+          const Text(
+            'Vista previa del objeto',
+            style: TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w600,
+              color: Colores.textoPrincipal,
             ),
           ),
-          const SizedBox(width: 14.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Objeto elegido',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colores.textoSecundario,
+          const SizedBox(height: 15.0),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final double anchoImagen = constraints.maxWidth * 0.35;
+
+              return Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: anchoImagen + 12.0),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 120.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            objetoElegido['nombre'],
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colores.textoPrincipal,
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            objetoElegido['descripcion'],
+                            style: const TextStyle(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              height: 1.6,
+                              color: Colores.textoPrincipal,
+                            ),
+                          ),
+                          const SizedBox(height: 12.0),
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            children: [
+                              _crearEtiqueta(objetoElegido['tipo']),
+                              _crearEtiqueta(_textoBonus(objetoElegido)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2.0),
-                Text(
-                  objetoElegido['nombre'],
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colores.textoPrincipal,
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: anchoImagen,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        color: Colores.dorado.withValues(alpha: 0.12),
+                        child: Image.asset(
+                          'assets/objetos/${objetoElegido['id']}.png',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            _iconoObjeto(objetoElegido['id']),
+                            size: 36.0,
+                            color: Colores.dorado,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2.0),
-                Text(
-                  '${objetoElegido['tipo']} · ${_textoBonus(objetoElegido)}',
-                  style: const TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colores.dorado,
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                Text(
-                  objetoElegido['descripcion'],
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colores.textoSecundario,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _crearEtiqueta(String texto) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      decoration: BoxDecoration(
+        color: Colores.dorado.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Text(
+        texto,
+        style: const TextStyle(
+          fontSize: 10.0,
+          fontWeight: FontWeight.w500,
+          color: Colores.dorado,
+        ),
       ),
     );
   }
