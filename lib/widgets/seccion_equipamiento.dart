@@ -262,11 +262,25 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: _objetos.length,
+          itemCount: (_objetos.length / 2).ceil(),
           itemBuilder: (context, index) {
+            int i = index * 2;
             return Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
-              child: _crearTarjeta(_objetos[index]),
+              child: IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(child: _crearTarjeta(_objetos[i])),
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: i + 1 < _objetos.length
+                          ? _crearTarjeta(_objetos[i + 1])
+                          : const SizedBox(),
+                    ),
+                  ],
+                ),
+              ),
             );
           },
         ),
