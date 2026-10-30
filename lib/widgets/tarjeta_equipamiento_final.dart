@@ -88,33 +88,50 @@ class _TarjetaEquipamientoFinalState extends State<TarjetaEquipamientoFinal> {
                     color: Colores.textoSecundario,
                   ),
                 )
-              : Column(
+              : Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _objeto!['nombre'],
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colores.textoPrincipal,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/objetos/${_objeto!['id']}.png',
+                        width: 64.0,
+                        height: 64.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    const SizedBox(height: 2.0),
-                    Text(
-                      _objeto!['tipo'],
-                      style: const TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colores.dorado,
-                      ),
-                    ),
-                    const SizedBox(height: 6.0),
-                    Text(
-                      _objeto!['descripcion'],
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colores.textoSecundario,
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _objeto!['nombre'],
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colores.textoPrincipal,
+                            ),
+                          ),
+                          const SizedBox(height: 2.0),
+                          Text(
+                            _objeto!['tipo'],
+                            style: const TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colores.dorado,
+                            ),
+                          ),
+                          const SizedBox(height: 6.0),
+                          Text(
+                            _objeto!['descripcion'],
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colores.textoSecundario,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
