@@ -60,7 +60,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/data/clases.json
+    - assets/data/
     - assets/raza/
     - assets/objetos/
 
