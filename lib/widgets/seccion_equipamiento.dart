@@ -33,6 +33,9 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
     setState(() {
       _objetos = jsonDecode(texto);
     });
+    if (widget.objetoSeleccionado == '') {
+      widget.onObjetoSeleccionado(_objetos[0]['id']);
+    }
   }
 
   IconData _iconoObjeto(String id) {
@@ -64,9 +67,7 @@ class _SeccionEquipamientoState extends State<SeccionEquipamiento> {
   Widget _crearTarjeta(dynamic objeto) {
     return TarjetaEquipamiento(
       titulo: objeto['nombre'],
-      categoria: objeto['tipo'],
       descripcion: objeto['descripcion'],
-      bonus: _textoBonus(objeto),
       icono: _iconoObjeto(objeto['id']),
       seleccionado: widget.objetoSeleccionado == objeto['id'],
       onTap: () => widget.onObjetoSeleccionado(objeto['id']),
