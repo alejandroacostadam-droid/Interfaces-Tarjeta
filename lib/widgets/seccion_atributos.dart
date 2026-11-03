@@ -51,7 +51,7 @@ class SeccionAtributos extends StatelessWidget {
         ),
         const SizedBox(height: 4.0),
         const Text(
-          'Cada aumento cuesta 1 punto. Base: 5 · Máximo: 16.',
+          'Cada aumento cuesta 1 punto. Base: 0.',
           style: TextStyle(
             fontSize: 13.0,
             fontWeight: FontWeight.w400,

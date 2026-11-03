@@ -19,8 +19,8 @@ class FilaAtributo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool esBase = valor == 5;
-    final int puntosExtra = valor - 5;
+    final bool esBase = valor == 0;
+    final int puntosExtra = valor;
     final String textoBadge = esBase
         ? 'Valor base'
         : (puntosExtra == 1 ? '+1 punto asignado' : '+$puntosExtra puntos asignados');
