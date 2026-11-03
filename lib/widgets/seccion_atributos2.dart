@@ -13,16 +13,16 @@ class SeccionAtributos2 extends StatefulWidget {
 }
 
 class _SeccionAtributos2State extends State<SeccionAtributos2> {
-  static const int valorBase = 5; // Valor mínimo de cada atributo
+  static const int valorBase = 0; // Valor mínimo de cada atributo
   static const int puntosTotales = 10; // Puntos que se pueden repartir
 
   // Esto es el estado de la pantalla: un Map que va a guardar el valor actual de cada atributo
   //String e int, el nombre y el valor de cada atributo
   final Map<String, int> valores = {
-    'Destreza': 5,
-    'Fuerza': 5,
-    'Resistencia': 5,
-    'Velocidad': 5,
+    'Destreza': 0,
+    'Fuerza': 0,
+    'Resistencia': 0,
+    'Velocidad': 0,
   };
 
   @override
