@@ -4,12 +4,12 @@ import '../design/colores.dart';
 
 class BotonesInferiores2 extends StatelessWidget {
   final VoidCallback onContinuar;
-  //final VoidCallback onVolver;
+  final VoidCallback onVolver;
 
   const BotonesInferiores2({
     super.key,
     required this.onContinuar,
-    //required this.onVolver,
+    required this.onVolver,
   });
 
   @override
@@ -45,20 +45,27 @@ class BotonesInferiores2 extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.arrow_back, size: 14.0, color: Colores.textoSecundario),
-            SizedBox(width: 8.0),
-            Text(
-              'Volver a clase y atributos físicos',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w500,
+        GestureDetector(
+          onTap: onVolver,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.arrow_back,
+                size: 14.0,
                 color: Colores.textoSecundario,
               ),
-            ),
-          ],
+              SizedBox(width: 8.0),
+              Text(
+                'Volver a clase y atributos físicos',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colores.textoSecundario,
+                ),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 12.0),
       ],

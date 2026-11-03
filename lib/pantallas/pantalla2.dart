@@ -26,6 +26,10 @@ class _Pantalla2State extends State<Pantalla2> {
     );
   }
 
+  void onVolver() {
+    Navigator.maybePop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +44,8 @@ class _Pantalla2State extends State<Pantalla2> {
               SizedBox(height: 24.0),
               Cabecera2(),
               SeccionEquipamiento2(),
-              SeccionAtributos2(),
-              BotonesInferiores2(onContinuar: onContinuar),
+              SeccionAtributos2(personaje: widget.personaje),
+              BotonesInferiores2(onContinuar: onContinuar, onVolver: onVolver),
             ],
           ),
         ),

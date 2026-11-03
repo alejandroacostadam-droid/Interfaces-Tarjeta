@@ -1,4 +1,4 @@
-import '../widgets/seccionAtributos4.dart';
+import '../widgets/tarjeta_atributos_fisicos2.dart';
 
 import 'package:flutter/material.dart';
 
@@ -55,6 +55,15 @@ class PantallaFinal extends StatelessWidget {
                 inteligencia: datos['inteligencia'],
                 sabiduria: datos['sabiduria'],
                 carisma: datos['carisma'],
+              ),
+              const SizedBox(height: 16.0), // 🔴 espacio añadido
+              TarjetaAtributosFisicos(
+                // 🔴 CAMBIO: "datos" en vez de "widget.personaje".
+                // "as Map" convierte el valor para poder copiarlo; si no
+                // existe (null), usamos un Map vacío {}.
+                atributos: Map<String, int>.from(
+                  (datos['atributosFisicos'] ?? {}) as Map,
+                ),
               ),
               const SizedBox(height: 16.0),
               TarjetaEquipamientoFinal(objeto: datos['objeto']),
