@@ -30,6 +30,10 @@ class _Pantalla2State extends State<Pantalla2> {
     Navigator.maybePop(context);
   }
 
+  void _guardarEnPersonaje(String claseSeleccionada) {
+    widget.personaje['clase'] = claseSeleccionada;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +47,7 @@ class _Pantalla2State extends State<Pantalla2> {
             children: [
               SizedBox(height: 24.0),
               Cabecera2(),
-              SeccionEquipamiento2(),
+              SeccionEquipamiento2(cambiarClase: _guardarEnPersonaje),
               SeccionAtributos2(personaje: widget.personaje),
               BotonesInferiores2(onContinuar: onContinuar, onVolver: onVolver),
             ],

@@ -51,19 +51,16 @@ class PantallaFinal extends StatelessWidget {
               //SeccionAtributos4(),
               TarjetaRazaClase(personaje: datos),
               const SizedBox(height: 16.0),
+              TarjetaAtributosFisicos(
+                atributos: Map<String, int>.from(
+                  (datos['atributosFisicos'] ?? {}) as Map,
+                ),
+              ),
+              const SizedBox(height: 16.0),
               TarjetaAtributosMentales(
                 inteligencia: datos['inteligencia'],
                 sabiduria: datos['sabiduria'],
                 carisma: datos['carisma'],
-              ),
-              const SizedBox(height: 16.0), // 🔴 espacio añadido
-              TarjetaAtributosFisicos(
-                // 🔴 CAMBIO: "datos" en vez de "widget.personaje".
-                // "as Map" convierte el valor para poder copiarlo; si no
-                // existe (null), usamos un Map vacío {}.
-                atributos: Map<String, int>.from(
-                  (datos['atributosFisicos'] ?? {}) as Map,
-                ),
               ),
               const SizedBox(height: 16.0),
               TarjetaEquipamientoFinal(objeto: datos['objeto']),

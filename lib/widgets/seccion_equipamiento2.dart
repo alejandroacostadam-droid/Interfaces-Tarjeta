@@ -8,7 +8,9 @@ import '../modelos/clase.dart';
 import 'tarjeta_equipamiento2.dart';
 
 class SeccionEquipamiento2 extends StatefulWidget {
-  const SeccionEquipamiento2({super.key});
+  final void Function(String claseSeleccionada) cambiarClase;
+
+  const SeccionEquipamiento2({super.key, required this.cambiarClase});
 
   @override
   State<SeccionEquipamiento2> createState() => _SeccionEquipamiento2State();
@@ -42,8 +44,10 @@ class _SeccionEquipamiento2State extends State<SeccionEquipamiento2> {
     // 4. Guardar y redibujar la pantalla
     setState(() {
       clases = lista;
-      claseSeleccionada = lista.first.id; // la primera queda elegida
+      claseSeleccionada = lista.first.id;
+      // la primera queda elegida
     });
+    widget.cambiarClase(lista.first.nombre);
   }
 
   // Cada clase tiene su icono según su id.
@@ -127,6 +131,7 @@ class _SeccionEquipamiento2State extends State<SeccionEquipamiento2> {
                   setState(() {
                     claseSeleccionada = clase.id;
                   });
+                  widget.cambiarClase(clase.nombre);
                 },
               ),
             );

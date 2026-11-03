@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../design/colores.dart';
 
 class TarjetaAtributosMentales extends StatelessWidget {
@@ -24,7 +25,7 @@ class TarjetaAtributosMentales extends StatelessWidget {
                 nombre,
                 style: const TextStyle(
                   fontSize: 14.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoPrincipal,
                 ),
               ),
@@ -33,7 +34,7 @@ class TarjetaAtributosMentales extends StatelessWidget {
                 descripcion,
                 style: const TextStyle(
                   fontSize: 11.0,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoSecundario,
                 ),
               ),
@@ -50,7 +51,7 @@ class TarjetaAtributosMentales extends StatelessWidget {
             valor,
             style: const TextStyle(
               fontSize: 12.0,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.bold,
               color: Colores.dorado,
             ),
           ),
@@ -67,10 +68,7 @@ class TarjetaAtributosMentales extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colores.superficie,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: Colores.borde,
-          width: 1.0,
-        ),
+        border: Border.all(color: Colores.borde, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,12 +80,15 @@ class TarjetaAtributosMentales extends StatelessWidget {
                 'Atributos mentales',
                 style: TextStyle(
                   fontSize: 14.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Colores.textoPrincipal,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colores.borde,
                   borderRadius: BorderRadius.circular(20.0),
@@ -96,7 +97,7 @@ class TarjetaAtributosMentales extends StatelessWidget {
                   'Por revisar',
                   style: TextStyle(
                     fontSize: 10.0,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                     color: Colores.textoSecundario,
                   ),
                 ),
@@ -108,16 +109,28 @@ class TarjetaAtributosMentales extends StatelessWidget {
             'Estos atributos funcionan por puntos, igual que los físicos. Revisa cada valor antes de confirmar tu personaje.',
             style: TextStyle(
               fontSize: 12.0,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
               color: Colores.textoSecundario,
             ),
           ),
           const SizedBox(height: 14.0),
-          _filaAtributo('Inteligencia', 'Magia, control y capacidad mental.', '+${inteligencia - 5}'),
+          _filaAtributo(
+            'Inteligencia',
+            'Magia, control y capacidad mental.',
+            '+${inteligencia - 5}',
+          ),
           const SizedBox(height: 12.0),
-          _filaAtributo('Sabiduría', 'Percepción, intuición y resistencia mental.', '+${sabiduria - 5}'),
+          _filaAtributo(
+            'Sabiduría',
+            'Percepción, intuición y resistencia mental.',
+            '+${sabiduria - 5}',
+          ),
           const SizedBox(height: 12.0),
-          _filaAtributo('Carisma', 'Persuasión, liderazgo y presencia social.', '+${carisma - 5}'),
+          _filaAtributo(
+            'Carisma',
+            'Persuasión, liderazgo y presencia social.',
+            '+${carisma - 5}',
+          ),
         ],
       ),
     );
