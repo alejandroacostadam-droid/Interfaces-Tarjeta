@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personarpg/pantallas/pantalla_equipamiento.dart';
 import 'package:personarpg/widgets/cabecera1.dart';
 import 'package:personarpg/widgets/seccion_identidad.dart';
 import 'package:personarpg/widgets/seccion_raza.dart';
@@ -21,12 +22,12 @@ class _PantallaIdentidadState extends State<PantallaIdentidad> {
     'biografia': '',
     'raza': '',
     'clase': '',
-    'fuerza': 5,
-    'destreza': 5,
-    'constitucion': 5,
-    'inteligencia': 5,
-    'sabiduria': 5,
-    'carisma': 5,
+    'fuerza': 0,
+    'destreza': 0,
+    'constitucion': 0,
+    'inteligencia': 0,
+    'sabiduria': 0,
+    'carisma': 0,
     'objeto': '',
   };
 

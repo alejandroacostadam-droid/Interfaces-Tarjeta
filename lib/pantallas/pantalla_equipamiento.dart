@@ -17,13 +17,12 @@ class PantallaEquipamiento extends StatefulWidget {
 }
 
 class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
-  final int puntosTotales = 8;
+  final int puntosTotales = 10;
 
   int _puntosUsados() {
     return widget.personaje['inteligencia'] +
         widget.personaje['sabiduria'] +
-        widget.personaje['carisma'] -
-        15;
+        widget.personaje['carisma'];
   }
 
   void _cambiarObjeto(String id) {
@@ -36,10 +35,10 @@ class _PantallaEquipamientoState extends State<PantallaEquipamiento> {
     int valor = widget.personaje[atributo];
     int puntosDisponibles = puntosTotales - _puntosUsados();
 
-    if (cambio > 0 && (puntosDisponibles == 0 || valor == 16)) {
+    if (cambio > 0 && puntosDisponibles == 0) {
       return;
     }
-    if (cambio < 0 && valor == 5) {
+    if (cambio < 0 && valor == 0) {
       return;
     }
 

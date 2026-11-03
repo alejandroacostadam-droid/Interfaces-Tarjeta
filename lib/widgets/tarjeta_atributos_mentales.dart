@@ -114,23 +114,11 @@ class TarjetaAtributosMentales extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14.0),
-          _filaAtributo(
-            'Inteligencia',
-            'Magia, control y capacidad mental.',
-            '+${inteligencia - 5}',
-          ),
+          _filaAtributo('Inteligencia', 'Magia, control y capacidad mental.', '+$inteligencia'),
           const SizedBox(height: 12.0),
-          _filaAtributo(
-            'Sabiduría',
-            'Percepción, intuición y resistencia mental.',
-            '+${sabiduria - 5}',
-          ),
+          _filaAtributo('Sabiduría', 'Percepción, intuición y resistencia mental.', '+$sabiduria'),
           const SizedBox(height: 12.0),
-          _filaAtributo(
-            'Carisma',
-            'Persuasión, liderazgo y presencia social.',
-            '+${carisma - 5}',
-          ),
+          _filaAtributo('Carisma', 'Persuasión, liderazgo y presencia social.', '+$carisma'),
         ],
       ),
     );
