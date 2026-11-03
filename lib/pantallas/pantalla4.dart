@@ -8,6 +8,7 @@ import '../widgets/tarjeta_resumen.dart';
 import '../widgets/tarjeta_raza_clase.dart';
 import '../widgets/tarjeta_atributos_mentales.dart';
 import '../widgets/tarjeta_equipamiento_final.dart';
+import 'pantalla_identidad.dart';
 
 class PantallaFinal extends StatelessWidget {
   // El personaje que llega de la pantalla 3.
@@ -64,6 +65,35 @@ class PantallaFinal extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TarjetaEquipamientoFinal(objeto: datos['objeto']),
+              const SizedBox(height: 24.0),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PantallaIdentidad(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 48.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colores.dorado,
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: const Text(
+                    'Finalizar',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colores.check,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
